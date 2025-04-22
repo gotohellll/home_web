@@ -1,0 +1,148 @@
+$(function(){
+	//1 오늘 날짜 출력
+	var today = new Date();
+	$('.year').text(today.getFullYear());
+	$('.month').text(today.getMonth()+1);
+	$('.date').text(today.getDate());
+	
+	//2 포커스 가면 ‘검색어를 입력하세요’를 안보이고 다시 포커스가 없으면 다시 출력 
+	$('#keyword').focus(function(){
+		$(this).css("background-position","0 -500px");
+	});
+	
+	$('#keyword').blur(function(){
+		$(this).css("background-position","0 0");
+	});
+	
+	//3 탭팬 구현
+	//var allDt = $('#tabmenu > dt');
+	var allDd = $('#tabmenu > dd');
+	
+	
+	
+	$('.tab_btn1').click(function(){
+		allDd.hide();
+		$(this).next().show();
+		
+		$('.tab_btn2 > a > img').prop('src',$('.tab_btn2 > a > img').prop('src').replace('_over','_out'));
+		$('.tab_btn3 > a > img').prop('src',$('.tab_btn3 > a > img').prop('src').replace('_over','_out'));
+		
+		//var img2 = $(this).find('img');
+		$(this).find('img').prop('src',$(this).find('img').prop('src').replace('1_out','1_over'));
+	});
+	
+	$('.tab_btn2').click(function(){
+		
+		allDd.hide();
+		$(this).next().show();
+		
+		$('.tab_btn1 > a > img').prop('src',$('.tab_btn1 > a > img').prop('src').replace('_over','_out'));
+		$('.tab_btn3 > a > img').prop('src',$('.tab_btn3 > a > img').prop('src').replace('_over','_out'));
+		
+		$(this).find('img').prop('src',$(this).find('img').prop('src').replace('2_out','2_over'));
+	});		
+	
+	$('.tab_btn3').click(function(){
+		allDd.hide();
+		$(this).next().show();
+		
+		//allimg.attr('src',allimg.prop('src').replace('3_over','3_out'));
+		
+		$(this).find('img').prop('src',$(this).find('img').prop('src').replace('3_out','3_over'));
+	});
+			
+		
+	//4 이미지슬라이드 구현
+	$('#best_bg').bxSlider({
+		 maxSlides : 5
+		, slideMargin : 50 //이미지 사이 여백
+		, slideWidth : 150 //이미지 가로길이
+		, auto : true
+		, autoHover : true //마우스올리면 슬라이드 멈춤
+		
+
+	});
+	
+	//5 [로그인]을 누르면 로그인 창이 보이고 [Close]를 누르면 다시 안 보임
+	$('.login_wrap > a').click(function(){
+		$('#login_f').css("top","0px");
+		//$('#login_f').show().css("top","0px");
+	})
+	
+	$('.login_close_btn > a').click(function(){
+		//console.log('로그인창닫힘');
+		//$('#login_f').hide(); //.css('top','-500px');
+		$('#login_f').css('top','-500px');
+		
+	})
+	
+	//6 [전체메뉴]를 선택하면 전체메뉴가 보이고 [Close] 누르면 다시 안 보임
+	$('#total_btn>a>img').click(function(){
+		//alert('ok');
+		$('#total_menu').show();
+	})
+	
+	$('#total_close').click(function(){
+		$('#total_menu').hide();
+	})
+	
+	//7 (설명포함)
+	
+	//로그인창 아이디 입력칸 클릭 시 '아이디' 이미지 사라짐
+	$('#user_id').focus(function(){
+		$('.user_id label').hide();
+		//아이디칸 비워지면 비밀번호도 사라짐
+		//아이디칸을 다시 클릭해야 사라진다->focus때문에. 비워지자마자 없애려면?
+		/*
+		if($('#user_id').val() == ''){ 
+			$('#user_pw').val('');
+		}*/
+	})
+	
+	//아이디칸 비워지면 비밀번호도 사라짐
+	//on('이벤트',...) : 여러이벤트를 한곳에서 처리가능
+	//input() : 입력값이 바뀌는 순간에 반응 
+	$('#user_id').on('input',function(){
+		if($('#user_id').val() == ''){ 
+			$('#user_pw').val('');
+		}
+	});
+	
+	//로그인창 아이디 입력칸에 입력하지 않았을 때 또는 공백일 때 '아이디'보이게 함 
+	//입력값이 있으면 사라짐 
+	$('#user_id').blur(function(){
+		if($('#user_id').val() == ''){
+			$('.user_id label').show();
+		}else{
+			$('.user_id label').hide();
+		}
+	})
+	
+	//로그인창 비밀번호 입력칸 클릭 시 '비밀번호' 이미지 사라짐 
+	$('#user_pw').focus(function(){
+		$('.user_pw label').hide();
+		
+		//아이디별 비밀번호 쿠키 불러오기
+		const savepw = $.cookie($('#user_id').val());
+		if(savepw){
+			$(this).val(savepw);
+		}
+	})
+	
+	//로그인창 비밀번호 입력칸에 입력하지 않았을 때 '비밀번호' 보이게 함
+	//입력값이 있으면 사라짐 
+	$('#user_pw').blur(function(){
+		if($('#user_pw').val() == ''){
+			$('.user_pw label').show();
+		}else{
+			$('.user_pw label').hide();
+		}
+	})
+	
+	//아이디별 비밀번호 저장 쿠키
+	$('.log_btn').click(function(){
+		if($('#save_id').is(':checked')){
+			$.cookie($('#user_id').val(),$('#user_pw').val(),{expires : 1});
+		}
+	});
+});

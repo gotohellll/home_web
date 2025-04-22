@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move element &apos;board_ex&apos; to &apos;JspBasic/src/main/java&apos;&#x0D;&#x0A;- Original project: &apos;JspBasic&apos;&#x0D;&#x0A;- Destination element: &apos;JspBasic/src/main/java&apos;&#x0D;&#x0A;- Original element: &apos;board_ex&apos;&#x0D;&#x0A;- Update references to refactored element" description="Move folder" destination="/src\/main\/java" element1="src/main/webapp/04_board_ex_class/src 밑에/board_ex" files="0" flags="589830" folders="1" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1745322160281" units="0" version="1.0"/>
+</session>

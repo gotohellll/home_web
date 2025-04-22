@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8"/>
+	<title> 첫 연습 </title>
+	<style type="text/css">
+		.active {
+			border: 3px solid red;
+			outline : 3px solid red;
+			
+		}
+	</style>
+	<script type="text/javascript" src='../lib/jquery-3.7.1.js'></script>
+	<script type="text/javascript">
+	$(function(){
+		
+		// [1]
+		$('ul>.woman').css({'background':'lightblue'});
+		$('ul>.man').css({'background':'lightyellow'}); 
+		
+		// [2]
+		var redBox = $('input.inputText'); 
+		redBox.focus(function(){ //redBox에 포커스가 들어온 순간 
+			$(this).addClass('active'); //this(이벤트가 발생한 칸만) active라는 클래스를 추가  
+		});
+		//focus <-> blur
+		redBox.blur(function(){
+			$(this).removeClass('active');
+		});
+		
+		// [3]
+		/* 태그와 태그사이에 값을 얻어오기 
+			자바스크립트 : innerHTML 
+			제이쿼리	: text() (단순하게 글씨만 가져온다) / html() (태그로 가져온다)
+			
+			[*] 제이쿼리 특징 : setter와 getter가 동일하다 
+				함수(인자) : setter
+				함수()	: getter (인자가 없으면 getter로 취급)
+				
+			[*] 속성값을 바꾸는 함수 
+				attr(속성명, 속성값) : 인자가 2개면 setter
+				attr(속성명)		: 속성값을 리턴해달라 -> getter 
+				
+				ex) attr('type','checkbox') => 속성에 타입을 checkbox로 변경 (setter)  
+					attr('type')			=> 타입 속성값을 얻어오기 (getter)
+		*/
+		
+		//alert($("#divText").text()); //getter		
+		//$("#divText").text("변경합니다") //setter
+		
+		$('#divText').text('<img src="images/grim.jpg" />'); // <img src="images/grim.jpg" /> 글자 자체가 출력
+		//바깥 작은따옴표쓰면 안에는 쌍따옴표
+		
+		$('#divHtml').html('<img src="images/grim.jpg" />'); //이미지출력
+		
+		$('#divEmpty').empty(); //빈곳으로 만듬
+		
+		//현재 강아지 그림을 클릭하면 고양이 그림으로 변경
+		//<img src="images/puppy.jpg" ~~> src 속성의 값을 고양이파일로 변경
+		$('#changeGrim').click (function(){
+			//alert('ok');
+			//$('#changeGrim').attr('src','images/cat.jpg');
+			
+			//alert($(this).attr('src')); //"images/puppy.jpg"
+			//alert($(this).attr('src').replace('puppy','cat')); 
+			//attr함수로 src를 얻어와(getter) -> replace함수를 사용해 puppy를 cat으로 바꿈 
+		$(this).attr('src',$(this).attr('src').replace('puppy','cat')); //getter로 얻어와서 setter로 다시 지정 
+		});
+		
+		// [4]
+		/* 
+			<div>태그사이의 값</div> : text()/ html()
+			<input value ='벨류값'> : val()
+		*/
+		$('#check').click(function () {
+			var name = $('#tf').val(); //val함수 인자 없이쓰면 getter
+			var msg = $('#ta').val();
+			var city = $('#sel').val();
+			var island = $('#sel_m').val();
+			
+			
+			alert("이름:"	+name	+"\n"
+				+"메세지:"	+msg	+"\n"
+				+"주소:"	+city	+"\n"
+				+"섬:"	+island
+				);
+		});
+		
+		//'초기화'버튼이 눌렸을 때 
+		$('#init').click(function () {
+			//alert('ok');
+			$('#tf').val('이름을 입력하세요'); //val함수에 인자를 주면 setter 
+			$('#ta').val('오늘도 행복하세요');
+			$('#sel').val('busan');
+			$('#sel_m').val(['seom1','seom4']); //배열표시  
+		});
+			
+		// [6]
+		//배열이어도 한번에 처리 가능 (주로사용)
+		/* $('.data').click(function () {
+			alert($(this).text());
+		}); */
+		
+		//정석 코드 
+		$('.data').each(function () { //each() : for문돌리듯이 요소 하나씩 뽑아주는 함수
+			$(this).click(function () {
+				alert($(this).text()); 
+				//제이쿼리와 자바스크립트를 섞어쓰진 않으나 만약에 버전 등의 문제로 작동이 안되면 자바스크립트 오리지널코드 써야함. 
+				//alert(this.innerHTML);
+			});
+		});
+		
+		// [5]
+		//	 태그의 부모/자식 관계
+		//		- 부모.append(자식)
+		//		- 자식.appendTo(부모)
+		var actor	= $('#actor');
+		var tae		= $('#tae');
+		var su		= $('#su');
+		var bin		= $('#bin');
+		
+		actor.append(tae);
+		su.appendTo(actor);
+		
+		actor.append('<div>한배우</div>');
+		$('<div>한배우</div>').appendTo(actor); //객체가 먼저 생성 후 appendTo()
+		
+		//동적으로 태그를 만들고 붙임 
+		var n = $('<div/>'); //<div></div> 가 만들어짐 
+		n.text('두배우'); //<div>두배우</div> (태그사이에 껴넣음)
+		
+		actor.append(n); //n을 actor에 붙임 
+		
+		/*
+		
+		[구별 중요] 
+		//이미 화면에 있는 객체를 찾음 
+		**3가지 차이점** 
+		var n = $('#div'); //화면에 <요소 id = 'div'> 객체를 n 변수에 담는다
+		var n = $('.div'); //화면에 <요소 class = 'div'> 객체를 n 변수에 담는다 
+		var n = $('div'); //화면에 <div></div> 
+		
+		//메모리 상으로 객체만 만듦 
+		var n = $('<div/>'); //화면과 관련없이 <div></div> 새로운 객체를 생성 -> append로 붙여야 화면에 붙음
+		var n = $('<div></div>'); 
+		
+		
+		
+		*/
+		
+	});
+	
+	</script>
+
+</head>
+<body>
+	<!--  1 -->
+	<ul>
+		<li class="man">김수현</li>
+		<li class="woman">김희애</li>
+		<li class="woman">송혜교</li>
+		<li class="man">하정우</li>
+		<li class="woman">김태희</li>
+	</ul>
+	<!-- 2 -->
+	<input type="text" class="inputText"/>
+	<input type="text" class="inputText"/>
+	<input type="text" class="inputText"/>
+	
+
+	<!-- 3 -->
+		<div id="divText">여기에 글씨를</div>
+		<div id="divHtml">여기에 그림을</div>
+		<div id="divEmpty">여기를 비움</div>
+		<p>
+		<img src="images/puppy.jpg" id='changeGrim'>
+		</p>
+		
+	<!-- 4 -->	
+		<p>
+		이름 : <input id="tf" type="text" size="20" /><br/>
+		메세지 : <textarea id="ta" rows="3" cols="20"></textarea><br/>
+		주소 : <select id="sel"> <!--콤보박스 : 사용자로 하여금 한개만 선택  -->
+			<option value="seoul">서울</option>	<!-- option에 value 값 없어도 됨 -->
+			<option value="busan">부산</option>
+			<option value="masan">마산</option>
+			<option value="incheon">인천</option>
+		</select>
+		<select id="sel_m" multiple="multiple"> <!-- 리스트 : 사용자로 하여금 ctrl+선택하면 여러개 선택 -->
+			<option value="seom1">제주도</option>
+			<option value="seom2">울릉도</option>
+			<option value="seom3">독도</option>
+			<option value="seom4">거제도</option>
+		</select><br/>
+		<input type='button' id='check' value='확인'/>
+		<input type='button' id='init' value='초기화'/> 
+		<div id='result'></div>
+		</p>
+		
+	<!-- 5 -->
+		<div id="actor">배우</div>
+		<div id="tae">김태희</div>
+		<div id="su">김수현</div>
+		<div id="bin">현빈</div>
+
+
+	<!-- 6 -->
+		<div class="data">이름</div>
+		<div class="data">직업</div>
+		<div class="data">나이</div>
+
+	
+</body>
+</html>

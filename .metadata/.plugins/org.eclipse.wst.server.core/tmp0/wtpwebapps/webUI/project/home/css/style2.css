@@ -1,0 +1,64 @@
+@charset "UTF-8";
+
+
+
+
+
+.bookcover { /* 캐러셀 */
+  height: 400px !important;
+  width: auto !important;
+  object-fit: cover;
+  display: block;
+  margin: auto;  /* 왼쪽 여백 */
+  margin-right: auto; /* 오른쪽 여백 없앰 */
+}
+
+.content3 { /* 하단 */
+	color: #bbb; 
+}
+
+.navbar { /* 상단 */
+	background: #5380a3; 
+}
+
+.collapse { /* 네비게이션 배경 */
+	background: #5380a3;
+}
+
+.collapse .nav { /* 네비게이션 메뉴배경 */
+	background: #5380a3;
+	
+}
+
+.collapse .nav>li>a{ /* 네비게이션 폰트 색상 */
+	color: white;
+}
+
+.container h4{ /* 아이콘텍스트 */
+	
+	padding-top: 20px; 
+	font-family: 'Source Sans Pro', sans-serif;
+}
+.service a:hover .icontxt h4 { /* 아이콘텍스트hover */
+	color: #5380a3; 
+	text-align :center;
+}
+
+.service a:hover .icons{ /* 아이콘hover */
+	background-color : #BBB;
+	
+}
+
+.icons { /* 아이콘 */
+	border-radius : 25%;
+	
+	border: 1px solid #5380a3;
+	
+}
+
+/* 네비게이션 폰트 호버 */
+.navbar-default .navbar-nav>li>a:hover {
+	color: #BBB
+	} 
+
+

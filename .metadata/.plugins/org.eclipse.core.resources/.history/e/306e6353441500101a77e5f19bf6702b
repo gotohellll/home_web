@@ -1,0 +1,17 @@
+@charset "UTF-8";
+
+.navbar-default .navbar-nav>li>a {
+    color: #777;
+}
+
+.carousel {
+	heigth : 80%;
+	width : 100%;
+}
+
+ .cover {
+ 	left: 200px; 
+ 	height: 80%; 
+ 	width: 30%; 
+ 	
+ 	}
