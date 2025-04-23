@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?> 
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="CommentMapper"> <!-- 별칭 -->
+
+	<!-- resultType, parameterType 만 사용 -->
+	
+	<select id="selectComment" resultType="Comment" parameterType="hashmap"> <!-- resultType 결과를 담을 곳 , mybatis-config에서 지정한 별칭입력 -->
+	<!-- 조건이 생길때마다 새로 추가하지 않음. parameter를 범용적으로 사용하기 위해 hashmap을 준다 -->
+		select 
+			comment_no 			AS commentNo
+			, user_id			AS userId
+			, comment_content	AS commentContent
+			, reg_date			AS regDate
+		 from comment_tab
+		 <where> <!-- 동적 where절 사용 -->
+		 	<if test="commentNo != null"> <!-- null값이면 where절 사용안함 -->
+		 		comment_no = #{commentNo}
+		 	</if>
+		 </where>
+	</select>
+	
+	<insert id="insertComment" parameterType="Comment">
+		INSERT INTO comment_tab
+		VALUES (#{commentNo}, #{userId}, #{commentContent}, sysdate)
+	
+	</insert>
+	
+	<delete id="deleteComment" parameterType="long">
+		DELETE FROM comment_tab
+		WHERE comment_no = #{commentNo}
+	</delete>
+	
+	<update id="modifyComment" parameterType="Comment" > <!-- resultType? -->
+		UPDATE comment_tab
+		SET comment_content = #{commentContent}
+		WHERE comment_no = #{commentNo}
+	</update>
+</mapper>

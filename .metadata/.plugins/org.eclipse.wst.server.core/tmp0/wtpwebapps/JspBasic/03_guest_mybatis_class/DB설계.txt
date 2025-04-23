@@ -1,0 +1,15 @@
+테이블명 : comment_tab
+
+글번호		: comment_no 		number			PK
+사용자아이디	: user_id			varchar2(50)
+내용		: comment_content 	varchar2(500)
+등록일		: reg_date			date
+
+
+[Java + DB연동방식]
+
+1. JDBC
+
+2. Mybatis :중간프로젝트때 사용 
+
+3. JPA 

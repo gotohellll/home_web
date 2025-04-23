@@ -1,0 +1,39 @@
+<%@page import="mybatis.guest.service.CommentService"%>
+<%@page import="mybatis.guest.session.CommentRepository"%>
+<%@ page import="mybatis.guest.service.*" %>  
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    
+ <% 
+ long commentNo = Long.parseLong(request.getParameter("cId"));
+ CommentService.getInstance().selectCommentByPK(commentNo);
+  
+ 
+ %>   
+    
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>메세지 수정</title>
+</head>
+<body>
+수정할 내용을 입력하세요.
+<form name="frm" action="modifyComment.jsp">
+<input type="hidden" name="commentNo" value="<%= commentNo %>" />
+<table>
+			<tr>
+				<td>메세지</td>
+				<td><textarea name="commentContent" rows="10" columns="40"></textarea></td>
+			</tr>
+			<tr>
+				<td>
+					<input type="submit" value="수정" /> 
+					<input type="button" value="취소" />
+					
+				</td>
+			</tr>
+		</table>
+</form>
+</body>
+</html>

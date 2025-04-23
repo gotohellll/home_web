@@ -3,3 +3,5 @@ C:\Users\User\Documents\javaWeb\web\.metadata\.plugins\org.eclipse.jst.jsp.core\
 \JspBasic\src\main\java
 C:\Users\User\Documents\javaWeb\web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\2744585398.index
 \webUI\src\main\java
+C:\Users\User\Documents\javaWeb\web\.metadata\.plugins\org.eclipse.jst.jsp.core\jspsearch\234838372.index
+\JspBasic\src\main\java
